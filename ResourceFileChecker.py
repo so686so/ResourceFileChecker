@@ -1,9 +1,9 @@
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- #
 TITLE       = 'Resource File Check Program for GNET System'
-VERSION     = '1.0.1'
+VERSION     = '1.0.2'
 AUTHOR      = 'So Byung Jun'
 UPDATE      = '2022-5-19'
-GIT_LINK    = 'https://github.com/so686so/'
+GIT_LINK    = 'https://github.com/so686so/ResourceFileChecker.git'
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- #
 
 # Windows .exe Command : 'pyinstaller -F ResourceFileChecker.py' (need 'ResourceFileChecker.spec')
@@ -67,6 +67,7 @@ RESOURCE_PATH       = os.path.dirname('./resource/')
 
 TTS_EXCEL_FILE_NAME = 'AnalysisTTS.xlsx'
 XML_EXCEL_FILE_NAME = 'AnalysisLang.xlsx'
+PATH_SAVE_FILE      = 'pathLog.log'
 
 TTS_EXCEL_PATH      = os.path.join(RESOURCE_PATH, TTS_EXCEL_FILE_NAME)
 XML_EXCEL_PATH      = os.path.join(RESOURCE_PATH, XML_EXCEL_FILE_NAME)
@@ -124,6 +125,52 @@ class LogSignal(QObject):
 
     def sendLog(self, log) -> None:
         self.signal.emit(log)
+
+
+# Common Use Class : PyQt Thread
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+class savePathCheckThread(QThread):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.p = parent
+
+    def run(self):
+        path_save_file  = os.path.join(RESOURCE_PATH, PATH_SAVE_FILE)
+        linux_path      = ""
+        
+        if os.path.isfile(path_save_file) is False:
+            return
+        
+        with open(path_save_file, 'r', encoding=ENCODING_FORMAT) as rf:
+            for eachLine in rf:
+                if 'LinuxPath' in eachLine:
+                    linux_path = eachLine.split('=')[1].strip('\n')
+
+        if not linux_path:
+            return
+
+        self.p.TRACE(__CUT_LINE__)
+        self.p.TRACE('* Linux path log file dectected...')
+        self.p.TRACE(f'* Check vaild dir : {linux_path}')
+        self.p.TRACE(__CUT_LINE__)
+
+        # 프로그램을 실행하는 로컬 환경과 맞지 않는 우분투 디렉토리를 찾을 때
+        # synchronize로 대기가 걸려서 UI가 멈추기 때문에 별개 쓰레드로 추출함
+        if os.path.isdir(os.path.join(linux_path, 'blackbox')) is True:
+            if not self.p.LinuxHomeDir:
+                self.p.LinuxHomeDir     = linux_path
+                self.p.PreRememberPath  = os.path.dirname(linux_path)
+                self.p.ui.linuxHomeDirLineEdit.setText(linux_path)
+
+                self.p.TRACE(__CUT_LINE__)
+                self.p.TRACE(f'* 홈 디렉토리 세팅 완료 : {linux_path}')
+                self.p.TRACE('* 엑셀 결과 저장 폴더를 선택해 주세요.')
+                self.p.TRACE(__CUT_LINE__)
+        else:
+            if not self.p.LinuxHomeDir:
+                self.p.TRACE(f'! 유효하지 않은 홈 디렉토리입니다. : {linux_path}')
+                self.p.TRACE('* 우분투 홈 디렉토리를 다시 선택해 주세요.')
+                self.p.TRACE(__CUT_LINE__)
 
 
 # Common Use Class : AnalysisApp - Parent Class
@@ -760,6 +807,7 @@ class AnalysisAppUI(QMainWindow):
         self.LinuxHomeDir       = r""
         self.ResultDir          = r""
 
+        self.checkThread        = savePathCheckThread(self)
         self.logSignal          = LogSignal()
         self.ui                 = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -775,7 +823,7 @@ class AnalysisAppUI(QMainWindow):
         else:
             self.ui.LogTextEdit.append(log)
             self.ui.LogTextEdit.setAlignment(align)
-            
+
 
     def setDefaultLog(self):
         self.TRACE(__CUT_LINE__)
@@ -785,7 +833,7 @@ class AnalysisAppUI(QMainWindow):
         self.TRACE(f'ver. {VERSION} / {UPDATE}', ALIGN_CENTER)
         self.TRACE()
         self.TRACE(AUTHOR, ALIGN_CENTER)
-        self.TRACE(f'({GIT_LINK})', ALIGN_CENTER)
+        self.TRACE(f'( {GIT_LINK} )', ALIGN_CENTER)
         self.TRACE(__CUT_LINE__)
         self.TRACE()
         self.TRACE('  [ How To Run ]')
@@ -794,7 +842,16 @@ class AnalysisAppUI(QMainWindow):
         self.TRACE('  2. 엑셀 결과 저장 폴더를 결과 엑셀 파일을 받고싶은 디렉토리로 설정')
         self.TRACE('  3. 두 디렉토리가 모두 유효한 디렉토리라면 하단의 Run 버튼 활성화')
         self.TRACE(__CUT_LINE__)
-        self.TRACE()
+
+
+    def tryLoadSavedPath(self):
+        self.checkThread.start()
+
+
+    def saveLinuxPath(self, target:str):
+        path_save_file  = os.path.join(RESOURCE_PATH, PATH_SAVE_FILE)
+        with open(path_save_file, 'w', encoding=ENCODING_FORMAT) as wf:
+            wf.write(f'LinuxPath={target}\n')
 
 
     def initialize(self):
@@ -811,6 +868,8 @@ class AnalysisAppUI(QMainWindow):
         self.checkComboboxProgram()
         self.ui.RunButton.setDisabled(True)
 
+        self.tryLoadSavedPath()
+
 
     def checkActiveRunButton(self):
         if  os.path.isdir(os.path.join(self.LinuxHomeDir, 'blackbox')) is True and \
@@ -819,6 +878,7 @@ class AnalysisAppUI(QMainWindow):
             self.TRACE('[!] 디렉토리 세팅 완료 : 이제 프로그램을 실행할 수 있습니다.')
             self.TRACE(__CUT_LINE__)
             self.ui.RunButton.setEnabled(True)
+            self.saveLinuxPath(self.LinuxHomeDir)
         else:
             self.ui.RunButton.setDisabled(True)
 
@@ -826,7 +886,9 @@ class AnalysisAppUI(QMainWindow):
     def checkComboboxProgram(self):
         curSelect = self.ui.selectProgramComboBox.currentText()
 
-        self.TRACE(f"- Program Select : {curSelect}")
+        self.TRACE()
+        self.TRACE(f">> {curSelect} <<", ALIGN_CENTER)
+        self.TRACE()
         if curSelect == 'TTS Analysis':
             self.ui.selectLanguageComboBox.setCurrentIndex(0)
             self.ui.selectLanguageComboBox.setDisabled(True)
@@ -836,12 +898,10 @@ class AnalysisAppUI(QMainWindow):
 
     def checkComboboxProject(self):
         curProject = self.ui.selectProjectComboBox.currentText()
-        self.TRACE(f"- Project Changed : {curProject}")
 
 
     def checkComboboxLanguage(self):
         curLang = self.ui.selectLanguageComboBox.currentText()
-        self.TRACE(f"- Language Changed : {curLang}")
 
 
     def selectHomeDir(self):
@@ -900,17 +960,18 @@ class AnalysisAppUI(QMainWindow):
 
         self.ui.RunButton.setDisabled(True)
 
-        self.TRACE('\n>>>>>>>>>>>>>>>>> [RUN]')
+        self.TRACE()
+        self.TRACE('[RUN PROGRAM]', ALIGN_CENTER)
         self.TRACE(__CUT_LINE__)
         self.TRACE(f'Program : {ProgramName}')
         self.TRACE(f'Project : {ProjectName}')
         self.TRACE(f'Lang    : {LangName}')
         self.TRACE(__CUT_LINE__)
 
-        if ProgramName == 'TTS Analysis':
+        if ProgramName == PROGRAM_LIST[TTS]:
             self.runTTS(ProjectName, LangName)
 
-        elif ProgramName == 'Locale XML Analysis':
+        elif ProgramName == PROGRAM_LIST[XML]:
             self.runXML(ProjectName, LangName)
 
         os.startfile(self.ResultDir)
@@ -924,8 +985,7 @@ class AnalysisAppUI(QMainWindow):
                 Lang = TTS_LANG_LIST[idx]
                 self.BaseLanguage = Lang
 
-
-        self.copiedResultExcel = os.path.join(self.ResultDir, 'AnalysisTTS.xlsx')
+        self.copiedResultExcel = os.path.join(self.ResultDir, TTS_EXCEL_FILE_NAME)
         shutil.copyfile(TTS_EXCEL_PATH, self.copiedResultExcel)
 
         if os.path.isfile(self.copiedResultExcel) is True:
@@ -948,7 +1008,7 @@ class AnalysisAppUI(QMainWindow):
                 Lang = XML_LANG_LIST[idx]
                 self.BaseLanguage = Lang
 
-        self.copiedResultExcel = os.path.join(self.ResultDir, 'AnalysisLang.xlsx')
+        self.copiedResultExcel = os.path.join(self.ResultDir, XML_EXCEL_FILE_NAME)
         shutil.copyfile(XML_EXCEL_PATH, self.copiedResultExcel)
 
         if os.path.isfile(self.copiedResultExcel) is True:

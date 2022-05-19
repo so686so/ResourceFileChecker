@@ -1,0 +1,12 @@
+1.0.0
+=====
+ - Program Create 
+
+1.0.1
+=====
+ - git upload
+ - refactoring
+
+1.0.2
+=====
+ - Addition of previously configured Ubuntu directory saving/loading thread
