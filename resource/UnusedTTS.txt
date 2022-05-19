@@ -1,0 +1,365 @@
+[ a3 ] - Files that are not used compared to DefualtTTS
+---------------------------------------------------------------
+<kor>
+ - gsync_disconnected.wav
+ - aging_reconnect.wav
+ - gsync_connected.wav
+
+<eng>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<jp>
+ - disable_wifi_registration.wav
+ - gsync_disconnected.wav
+ - enable_wifi_registration.wav
+ - gsync_connected.wav
+
+<cn>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<ru>
+
+<it>
+
+<tu>
+
+<po>
+ - am9.wav
+ - am3.wav
+ - am6.wav
+ - am8.wav
+ - pm2.wav
+ - am4.wav
+ - pm4.wav
+ - pm6.wav
+ - am1.wav
+ - pm10.wav
+ - pm3.wav
+ - pm12.wav
+ - am2.wav
+ - am5.wav
+ - am12.wav
+ - pm5.wav
+ - pm7.wav
+ - am11.wav
+ - pm11.wav
+ - am10.wav
+ - pm1.wav
+ - pm9.wav
+ - pm8.wav
+ - am7.wav
+
+<vi>
+ - Update_app.wav
+
+<is>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<fr>
+ - sd_timeout.wav
+ - gsync_disconnected.wav
+ - rec_restart_backup.wav
+ - aging_reconnect.wav
+ - gsync_connected.wav
+
+[ s3 ] - Files that are not used compared to DefualtTTS
+---------------------------------------------------------------
+<kor>
+ - gsync_disconnected.wav
+ - inside_capture_not.wav
+ - aging_reconnect.wav
+ - gsync_connected.wav
+
+<eng>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<jp>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<cn>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<ru>
+
+<it>
+
+<tu>
+
+<po>
+ - am9.wav
+ - am3.wav
+ - am6.wav
+ - am8.wav
+ - pm2.wav
+ - am4.wav
+ - pm4.wav
+ - pm6.wav
+ - am1.wav
+ - pm10.wav
+ - pm3.wav
+ - pm12.wav
+ - am2.wav
+ - am5.wav
+ - am12.wav
+ - pm5.wav
+ - pm7.wav
+ - am11.wav
+ - pm11.wav
+ - am10.wav
+ - pm1.wav
+ - pm9.wav
+ - pm8.wav
+ - am7.wav
+
+<vi>
+ - Update_app.wav
+
+<is>
+
+<fr>
+ - sd_timeout.wav
+ - gsync_disconnected.wav
+ - rec_restart_backup.wav
+ - aging_reconnect.wav
+ - gsync_connected.wav
+
+[ v3 ] - Files that are not used compared to DefualtTTS
+---------------------------------------------------------------
+<kor>
+ - gsync_disconnected.wav
+ - inside_capture_not.wav
+ - aging_reconnect.wav
+ - gsync_connected.wav
+
+<eng>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<jp>
+ - disable_wifi_registration.wav
+ - gsync_disconnected.wav
+ - enable_wifi_registration.wav
+ - gsync_connected.wav
+
+<cn>
+ - gsync_disconnected.wav
+ - gsync_connected.wav
+
+<ru>
+ - inside_capture_not.wav
+
+<it>
+
+<tu>
+
+<po>
+ - am9.wav
+ - am3.wav
+ - am6.wav
+ - am8.wav
+ - pm2.wav
+ - am4.wav
+ - pm4.wav
+ - pm6.wav
+ - am1.wav
+ - pm10.wav
+ - pm3.wav
+ - pm12.wav
+ - am2.wav
+ - am5.wav
+ - am12.wav
+ - pm5.wav
+ - pm7.wav
+ - am11.wav
+ - pm11.wav
+ - am10.wav
+ - pm1.wav
+ - pm9.wav
+ - pm8.wav
+ - am7.wav
+
+<vi>
+ - Update_app.wav
+
+<is>
+ - gsync_disconnected.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+
+<fr>
+ - sd_timeout.wav
+ - gsync_disconnected.wav
+ - rec_restart_backup.wav
+ - aging_reconnect.wav
+ - gsync_connected.wav
+
+[ v4 ] - Files that are not used compared to DefualtTTS
+---------------------------------------------------------------
+<kor>
+ - aging_reconnect.wav
+ - inside_capture_not.wav
+
+<eng>
+ - unregistered_modem_in_db.wav
+ - incorrect_modem.wav
+ - inside_capture_not.wav
+
+<jp>
+ - letf_check.wav
+ - unregistered_modem_in_db.wav
+ - incorrect_modem.wav
+ - inside_capture_not.wav
+
+<cn>
+ - ssd_disconnected.wav
+ - unregistered_modem_in_db.wav
+ - incorrect_modem.wav
+ - withcloud_disconnected.wav
+ - inside_capture_not.wav
+ - withcloud_connected.wav
+
+<ru>
+ - sd_timeout.wav
+ - inside_capture_not.wav
+
+<it>
+
+<tu>
+ - gsync_disconnected.wav
+ - unregistered_modem_in_db.wav
+ - incorrect_modem.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+
+<po>
+ - am9.wav
+ - am3.wav
+ - am6.wav
+ - am8.wav
+ - pm2.wav
+ - am4.wav
+ - pm4.wav
+ - pm6.wav
+ - am1.wav
+ - gsync_disconnected.wav
+ - pm10.wav
+ - pm3.wav
+ - pm12.wav
+ - am2.wav
+ - am5.wav
+ - unregistered_modem_in_db.wav
+ - incorrect_modem.wav
+ - am12.wav
+ - pm5.wav
+ - pm7.wav
+ - sd_timeout.wav
+ - am11.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+ - pm11.wav
+ - am10.wav
+ - pm1.wav
+ - pm9.wav
+ - pm8.wav
+ - am7.wav
+
+<vi>
+ - Update_app.wav
+
+<is>
+ - heat_off2.wav
+ - gsync_disconnected.wav
+ - ssd_disconnected.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+
+<fr>
+ - unregistered_modem_in_db.wav
+ - incorrect_modem.wav
+ - rec_restart_backup.wav
+ - aging_reconnect.wav
+ - sd_timeout.wav
+ - inside_capture_not.wav
+
+[ v8 ] - Files that are not used compared to DefualtTTS
+---------------------------------------------------------------
+<kor>
+ - aging_reconnect.wav
+ - inside_capture_not.wav
+
+<eng>
+ - inside_capture_not.wav
+
+<jp>
+ - letf_check.wav
+ - inside_capture_not.wav
+
+<cn>
+ - ssd_disconnected.wav
+ - withcloud_disconnected.wav
+ - inside_capture_not.wav
+ - withcloud_connected.wav
+
+<ru>
+ - sd_timeout.wav
+ - inside_capture_not.wav
+
+<it>
+
+<tu>
+ - gsync_disconnected.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+
+<po>
+ - am9.wav
+ - am3.wav
+ - am6.wav
+ - am8.wav
+ - pm2.wav
+ - am4.wav
+ - pm4.wav
+ - pm6.wav
+ - am1.wav
+ - gsync_disconnected.wav
+ - pm10.wav
+ - pm3.wav
+ - pm12.wav
+ - am2.wav
+ - am5.wav
+ - am12.wav
+ - pm5.wav
+ - pm7.wav
+ - sd_timeout.wav
+ - am11.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+ - pm11.wav
+ - am10.wav
+ - pm1.wav
+ - pm9.wav
+ - pm8.wav
+ - am7.wav
+
+<vi>
+ - Update_app.wav
+
+<is>
+ - heat_off2.wav
+ - gsync_disconnected.wav
+ - ssd_disconnected.wav
+ - inside_capture_not.wav
+ - gsync_connected.wav
+
+<fr>
+ - rec_restart_backup.wav
+ - aging_reconnect.wav
+ - sd_timeout.wav
+ - inside_capture_not.wav
+
